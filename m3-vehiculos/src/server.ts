@@ -7,7 +7,7 @@ import YAML from "yaml";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { vehiculoRoutes } from "./vehiculos/vehiculo-routes.js";
 import { documentoRoutes } from "./documents/documents-routes.js";
-import { redis } from "./config/redisClient.js";
+import { connectRedis } from "./config/redisClient.js";
 import { connectRabbit } from "./config/rabbitClient.js";
 import { iniciarConsumidores as iniciarConsumidoresVehiculos } from "./events/consumers.js";
 import { iniciarConsumidores as iniciarConsumidoresDocumentos } from "./documents/documents-consumers.js";
@@ -38,7 +38,7 @@ app.use("/api/v1/drivers/:driverId/documents", documentoRoutes);
 // Siempre al final, después de todas las rutas
 app.use(errorHandler);
 
-await redis.connect();
+await connectRedis();
 console.log(" Conectado a Redis");
 
 // Si RabbitMQ no está disponible, el servicio arranca igual: la publicación

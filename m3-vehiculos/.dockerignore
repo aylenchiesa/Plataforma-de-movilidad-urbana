@@ -6,3 +6,4 @@ dist
 tests
 *.tsbuildinfo
 .git
+.env.docker
